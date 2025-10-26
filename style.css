@@ -1,0 +1,303 @@
+:root {
+	--bg: #f8fafc;
+	--accent: #3b82f6;
+	--accent-hover: #2563eb;
+	--shadow: rgba(0, 0, 0, 0.12);
+	--radius: 12px;
+	--transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	--font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+	--content-max: 960px;
+	--content-pad: 16px;
+	--h1: clamp(20px, 2.6vw, 28px);
+	--subtitle: clamp(13px, 1.5vw, 16px);
+	--btn-h: 42px;
+	--btn-gap: 10px;
+	--btn-font: 14px;
+	--info-max-h: 220px;
+	--tab-w: 14px;
+	--tab-h: 92px;
+	--card-pad: 10px;
+	--card-border: 1px;
+	--card-shadow: 0 2px 10px var(--shadow);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background: var(--bg);
+	font-family: var(--font);
+}
+
+body.no-scroll { overflow: hidden; }
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 100dvh;
+	text-align: center;
+	padding: 16px 0 24px;
+	box-sizing: border-box;
+}
+
+header {
+	width: min(100%, var(--content-max));
+	padding: 0 var(--content-pad);
+	box-sizing: border-box;
+}
+header h1 {
+	font-weight: 700;
+	font-size: var(--h1);
+	margin: 6px 0 6px;
+}
+.subtitle {
+	color: #6b7280;
+	font-size: var(--subtitle);
+	margin-bottom: 10px;
+}
+
+#canvas-container,
+#infoBox {
+	width: min(100%, var(--content-max));
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+	padding: var(--card-pad);
+	border: var(--card-border) solid #000;
+	border-radius: var(--radius);
+	background: #fff;
+	box-shadow:
+		var(--card-shadow),
+		inset 0 0 0 1px #000;
+}
+
+#canvas-container {
+	min-width: 0;
+	min-height: 220px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	display: block;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+.button-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--btn-gap);
+	margin-top: 10px;
+	align-items: center;
+	width: min(100%, var(--content-max));
+	box-sizing: border-box;
+	justify-content: center;
+}
+
+button {
+	border: none;
+	border-radius: var(--radius);
+	height: var(--btn-h);
+	padding: 0 16px;
+	font-size: var(--btn-font);
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.btn-primary {
+	background: var(--accent);
+	color: white;
+	box-shadow: 0 3px 10px rgba(59,130,246,0.25);
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+	background: #e5e7eb;
+	color: #111;
+}
+.btn-secondary:hover { background: #d1d5db; }
+
+button:disabled,
+button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+	box-shadow: none;
+	transform: none;
+}
+.btn-primary:disabled { background: #93c5fd; color: white; }
+.btn-secondary:disabled { background: #e5e7eb; color: #9ca3af; }
+
+#infoBox {
+	margin-top: 10px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+	font-size: 13px;
+	text-align: left;
+	white-space: pre;
+	max-height: var(--info-max-h);
+	overflow: auto;
+}
+
+#side-panel {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100dvh;
+	width: 320px;
+	max-width: 86vw;
+	background: rgba(255, 255, 255, 0.92);
+	backdrop-filter: blur(16px);
+	box-shadow: 6px 0 20px rgba(0,0,0,0.1);
+	border-right: 1px solid rgba(0,0,0,0.05);
+	border-radius: 0 var(--radius) var(--radius) 0;
+	transform: translateX(-290px);
+	transition: transform var(--transition);
+	z-index: 20;
+	will-change: transform;
+}
+
+#side-panel::after{
+	content: "";
+	position: absolute;
+	right: calc(var(--tab-w) * -1);
+	top: 50%;
+	transform: translateY(-50%);
+	width: var(--tab-w);
+	height: var(--tab-h);
+	background: var(--accent);
+	border-radius: 0 6px 6px 0;
+	box-shadow: 0 0 10px rgba(59,130,246,0.3);
+	cursor: pointer;
+	z-index: 3;
+	pointer-events: auto;
+}
+#side-panel.open { transform: translateX(0); }
+#side-panel.open::after { display: none; }
+
+.panel-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 24px 20px 56px;
+	box-sizing: border-box;
+	height: 100%;
+	overflow: auto;
+	gap: 10px;
+}
+.panel-inner h2 {
+	font-size: 16px;
+	margin: 0 0 6px;
+	color: #1f2937;
+	font-weight: 700;
+}
+
+textarea,
+.panel-buttons button {
+	width: 100%;
+	max-width: 260px;
+	box-sizing: border-box;
+}
+
+textarea {
+	height: 220px;
+	resize: vertical;
+	border-radius: var(--radius);
+	border: 1px solid #d1d5db;
+	padding: 12px 14px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+	background: #f9fafb;
+	color: #111827;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+	transition: border-color 0.2s;
+}
+textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+}
+
+.panel-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	align-items: center;
+}
+.panel-buttons button {
+	padding: 0 0;
+	border-radius: var(--radius);
+	font-size: var(--btn-font);
+	height: var(--btn-h);
+}
+
+#side-panel .panel-close {
+	position: absolute;
+	top: calc(env(safe-area-inset-top, 0px) + 8px);
+	right: 8px;
+	width: 44px;
+	height: 44px;
+	border: none;
+	border-radius: 999px;
+	background: rgba(0,0,0,0.08);
+	color: #111;
+	font-size: 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 3;
+	transition: background 0.2s ease;
+}
+#side-panel .panel-close:hover { background: rgba(0,0,0,0.14); }
+#side-panel .panel-close:active { background: rgba(0,0,0,0.2); }
+#side-panel .panel-close svg {
+	width: 22px;
+	height: 22px;
+	display: block;
+}
+
+#panel-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.12);
+	backdrop-filter: blur(1px);
+	z-index: 15;
+}
+
+@media (max-width: 640px){
+	#side-panel {
+		width: min(520px, 100vw);
+		max-width: 100vw;
+		transform: translateX(-100%);
+		border-radius: 0;
+	}
+	:root{
+		--tab-w: 18px;
+		--tab-h: 96px;
+	}
+	#side-panel .panel-close {
+		width: 48px;
+		height: 48px;
+		right: 10px;
+		top: calc(env(safe-area-inset-top, 0px) + 10px);
+	}
+	#side-panel .panel-close svg { width: 24px; height: 24px; }
+	:root {
+		--btn-h: 40px;
+		--info-max-h: 180px;
+	}
+}

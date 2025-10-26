@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<title>Smallest Enclosing Circle Visualizer</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+		<script defer src="sketch.js"></script>
+	</head>
+	<body>
+		<aside id="side-panel" class="collapsed" aria-hidden="true">
+			<button id="panel-close" class="panel-close" aria-label="입력창 닫기" title="닫기">
+				<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				</svg>
+			</button>
+			<div class="panel-inner">
+				<h2>입력 좌표</h2>
+				<textarea id="inputBox" placeholder="입력 예시:
+n
+x1 y1
+x2 y2
+..."></textarea>
+				<div class="panel-buttons">
+					<button id="randomInputBtn" class="btn-secondary">랜덤 입력 생성</button>
+					<button id="loadBtn" class="btn-primary">입력 적용</button>
+				</div>
+			</div>
+		</aside>
+
+		<div id="panel-overlay" hidden></div>
+		<main>
+			<header>
+				<h1>Smallest Enclosing Circle</h1>
+				<p class="subtitle">(subgradient method)</p>
+			</header>
+
+			<section id="canvas-container"></section>
+
+			<div class="button-group">
+				<button id="nextStepBtn" class="btn-primary">다음 단계</button>
+				<button id="resetBtn" class="btn-secondary">리셋</button>
+				<button id="autoBtn" class="btn-secondary">▶ 자동 실행</button>
+			</div>
+
+			<pre id="infoBox"></pre>
+		</main>
+	</body>
+</html>

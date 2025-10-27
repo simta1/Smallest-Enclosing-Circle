@@ -330,7 +330,7 @@ function updateInfo(f, r) {
 Rate : ${rate.toFixed(5)}
 Center : (${center.x.toFixed(2)}, ${center.y.toFixed(2)})
 Radius : ${r.toFixed(2)}
-Furthest Point : (${f.x.toFixed(2)}, ${f.y.toFixed(2)})`;
+Farthest Point : (${f.x.toFixed(2)}, ${f.y.toFixed(2)})`;
 }
 
 function startAutoRun() {
